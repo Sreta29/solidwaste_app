@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:solidwaste_app/login_page.dart';
 import 'package:solidwaste_app/register_page.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
