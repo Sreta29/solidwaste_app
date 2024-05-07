@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:solidwaste_app/update_profile.dart';
 
-
 class HomePage extends StatefulWidget {
+
   const HomePage({super.key});
 
   @override
@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
 
     setState(() {
-      changePage = !changePage;
+      changePage = false;
     });
   }
 
@@ -43,7 +43,19 @@ class _HomePageState extends State<HomePage> {
                     changePage = !changePage;
                   });
                 },
-                
+                child: const Row(
+                  children: [
+                    
+                    SizedBox(width: 10),
+                    Text(
+                      'User Name', // Replace with actual user name
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 10),
               const Text(

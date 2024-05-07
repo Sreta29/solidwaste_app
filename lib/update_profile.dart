@@ -34,7 +34,7 @@ class _UpdateProfilePageState extends State<UpdateProfilePage>{
   @override
   Widget build(BuildContext context) {
     if(changePage){
-      return const HomePage();
+      return const HomePage(key: null,);
     }
     return
     Scaffold(

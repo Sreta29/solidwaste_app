@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:solidwaste_app/homepage.dart';
+
 import 'package:solidwaste_app/order_form.dart';
 import 'package:solidwaste_app/payment.dart';
 import 'package:solidwaste_app/setting.dart';
@@ -20,7 +21,7 @@ class _LayoutState extends State<Layout> {
 
 
    List<Widget> tabs = [
-   const HomePage(),
+   const HomePage(key: null,),
    const OrderForm(orderNumber: '',),
    const PaymentPage(),
    const SettingPage()
