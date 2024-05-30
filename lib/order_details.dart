@@ -1,100 +1,86 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:solidwaste_app/order_form.dart';
 
+class OrderDetailsScreen extends StatelessWidget {
+  final String orderNumber;
+  final String postCode;
+  final String zone;
+  final String address;
+  final int gardenWastePacks;
+  final int oversizedWasteItems;
+  final List<File> selectedImages;
 
-class OrderDetails extends StatelessWidget {
-  final Order order;
-
-  const OrderDetails({super.key, required this.order});
+  const OrderDetailsScreen({
+    super.key,
+    required this.orderNumber,
+    required this.postCode,
+    required this.zone,
+    required this.address,
+    required this.gardenWastePacks,
+    required this.oversizedWasteItems,
+    required this.selectedImages,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Order Details'),
+        title: Text('Order #$orderNumber Details'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Text(
-              'Collection Address',
+              'Collection Address:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Post Code',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  order.postCode ?? '',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-            const SizedBox(width: 24),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  'Zone',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  order.zone ?? '',
-                  style: const TextStyle(fontSize: 16),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
             Text(
-              order.address ?? '',
+              'Post Code: $postCode',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Zone: $zone',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Address: $address',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             const Text(
-              'Garden Waste (RM1/pack)',
+              'Garden Waste (RM1/pack):',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              order.gardenWastePacks?.toString() ?? '',
+              'Number of packs: $gardenWastePacks',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             const Text(
-              'Oversized Waste (RM5/item)',
+              'Oversized Waste (RM5/item):',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
-              order.oversizedWasteItems?.toString() ?? '',
+              'Number of items: $oversizedWasteItems',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
-            Text(
-              'Number of Images: ${order.selectedImages?.length ?? 0}',
-              style: const TextStyle(fontSize: 16),
+            const Text(
+              'Uploaded Photos:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
-            // Display the selected images
+            const SizedBox(height: 8),
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
-              children: order.selectedImages
-                  ?.map((image) => Image.file(image, width: 100, height: 100))
-                  .toList() ??
-                  [],
+              children: selectedImages
+                  .map((image) => Image.file(image, width: 100, height: 100))
+                  .toList(),
             ),
           ],
         ),
@@ -102,3 +88,5 @@ class OrderDetails extends StatelessWidget {
     );
   }
 }
+
+

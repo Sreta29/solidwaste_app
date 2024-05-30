@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:solidwaste_app/homepage.dart';
-
 import 'package:solidwaste_app/order_form.dart';
 import 'package:solidwaste_app/payment.dart';
 import 'package:solidwaste_app/setting.dart';
-
-
 
 class Layout extends StatefulWidget{
     const Layout({super.key});

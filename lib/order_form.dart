@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:solidwaste_app/order_details.dart'; // Import the OrderDetailsScreen widget
 
 class Order {
   String? postCode;
@@ -25,7 +25,7 @@ class Order {
 }
 
 class OrderForm extends StatefulWidget {
-  const OrderForm({super.key, required this.orderNumber});
+  const OrderForm({Key? key, required this.orderNumber}) : super(key: key);
   final String orderNumber;
 
   @override
@@ -52,16 +52,28 @@ class _OrderFormState extends State<OrderForm> {
   Future<void> _uploadPhotos() async {
     final pickedImages = await _picker.pickMultiImage();
     setState(() {
-      order.selectedImages = pickedImages
-          .map((pickedImage) => File(pickedImage.path))
-          .toList();
+      order.selectedImages =
+          pickedImages.map((pickedImage) => File(pickedImage.path)).toList();
     });
   }
 
   void _submitForm() {
     if (order.isValid()) {
-      // Proceed with form submission
-      print('Form is valid, submit the order');
+      // Navigate to order details page and pass order data
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => OrderDetailsScreen(
+            orderNumber: widget.orderNumber,
+            postCode: order.postCode!,
+            zone: order.zone!,
+            address: order.address!,
+            gardenWastePacks: order.gardenWastePacks!,
+            oversizedWasteItems: order.oversizedWasteItems!,
+            selectedImages: order.selectedImages!,
+          ),
+        ),
+      );
     } else {
       // Display error messages
       ScaffoldMessenger.of(context).showSnackBar(
@@ -153,7 +165,7 @@ class _OrderFormState extends State<OrderForm> {
                   items: const [
                     DropdownMenuItem<String>(
                       value: 'Bandar Penggaram',
-                      child: Text('Bandar Pneggaram'),
+                      child: Text('Bandar Penggaram'),
                     ),
                     DropdownMenuItem<String>(
                       value: 'Ayer Hitam',
@@ -231,18 +243,20 @@ class _OrderFormState extends State<OrderForm> {
               child: const Text('Upload Photos'),
             ),
             const SizedBox(height: 16),
-ElevatedButton(
+            ElevatedButton(
               onPressed: _submitForm,
               child: const Text('Submit'),
             ),
             const SizedBox(height: 16),
+            
             // Display the selected images
             Wrap(
               spacing: 8.0,
               runSpacing: 8.0,
               children: order.selectedImages
-                  ?.map((image) => Image.file(image, width: 100, height: 100))
-                  .toList() ??
+                      ?.map(
+                          (image) => Image.file(image, width: 100, height: 100))
+                      .toList() ??
                   [],
             ),
           ],
@@ -251,3 +265,4 @@ ElevatedButton(
     );
   }
 }
+
